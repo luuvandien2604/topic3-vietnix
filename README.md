@@ -344,3 +344,4 @@ chattr +i .user.ini
 ## Bước 5: Kiểm Tra Hoạt Động Của SSL
 
 - Truy cập website bằng HTTPS: https://vdien.wp.vietnix.tech
+- Làm tương tự với web lavarel
