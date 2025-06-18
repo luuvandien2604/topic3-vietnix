@@ -94,10 +94,6 @@ chown -R www:www .
 chattr +i .user.ini
 ```
 
-## 4. Cài đặt Lavarel 
-* **Bước 1: Bảo đảm đã cài đặt LNMP Stack (Linux + Nginx + MySQL + PHP)**
-
-
 ## 4. Cài đặt Laravel
 
 * **Bước 1: Bảo đảm đã cài đặt LNMP Stack (Linux + Nginx + MySQL + PHP)**
@@ -173,8 +169,178 @@ chattr +i .user.ini
 
 ![image](https://github.com/user-attachments/assets/2bdb8bbe-024a-4557-94f5-af669c81fb37)
 
+
 * Project directory "/www/wwwroot/vdien.laravel.vietnix.tech/." is not empty.
     **Nguyên nhân:** Thư mục không rỗng.
 
     **Cách xử lý:** Vào aaPanel > Website > Chọn Conf kế bên website > Site directory > Tắt Anti-XSS attack
 
+# III. Cài đặt và active các Plugin trong Wordpress
+
+## Cài đặt các plugin: Rank Math SEO, Mytheme Shop, Elementor, Divi Theme
+
+* Sau khi cài đặt wordpress, vào trang quản trị và tiến hành thêm plugin
+  Plugin > Thêm Plugin > Tải plugin lên > Tải plugin lên > Cài đặt > Kích hoạt plugin
+
+
+
+# IV. Cách sử dụng Plugin **All-in-One WP Migration**
+## Cài Đặt Plugin
+
+* Đăng nhập vào trang quản trị WordPress:  
+   `http://vdien.wp.vietnix.tech/wp-admin`
+
+* Vào menu: **Plugin > Cài mới**
+
+* Tìm với từ khóa: `All-in-One WP Migration`
+
+* Nhấn **"Cài đặt"** → **"Kích hoạt"**
+
+
+## Sao Lưu Website (Backup)
+
+* Vào menu: **All-in-One WP Migration > Backup**
+
+* Nhấn nút **Create Backup**
+
+* Sau khi hoàn tất:
+   - Nhấn biểu tượng **ba chấm** để **tải file backup (.wpress) về máy**
+
+## Khôi Phục Website (Restore)
+
+### Trường hợp 1: File backup vẫn còn trên VPS
+* Vào: **All-in-One WP Migration > Backup**
+* Nhấn **Restore** ở bản backup mong muốn
+* Xác nhận và chờ hoàn tất
+
+### Trường hợp 2: Có file `.wpress` trên máy
+* Vào: **All-in-One WP Migration > Import**
+* Kéo file `.wpress` vào trình duyệt hoặc nhấn **Import from File**
+* Xác nhận và đợi quá trình phục hồi hoàn tất
+
+## Di Chuyển Website (Migrate)
+
+* **Trên website cũ:**
+   - Vào: **All-in-One WP Migration > Export**
+   - Chọn: **Export to > File**
+   - Tải file `.wpress` về máy
+
+* **Trên website mới (đã cài WP + plugin):**
+   - Vào: **All-in-One WP Migration > Import**
+   - Tải lên file `.wpress` từ máy
+   - Nhấn **Proceed** để xác nhận
+
+---
+
+# V. Mục đích sử dụng WP-Optimize – Cache và Litespeed Cache
+
+## 1. WP-Optimize – Cache
+
+### Mục Đích Sử Dụng
+- Tối ưu cơ sở dữ liệu WordPress
+- Tạo bộ nhớ đệm (cache) để tăng tốc website
+- Nén ảnh
+- Gộp và nén HTML/CSS/JS
+
+### Khi Nào Nên Cài
+- Website sử dụng **shared hosting** hoặc **VPS thường**
+- Không dùng Web Server LiteSpeed
+- Cần tối ưu **database + cache + ảnh** trong một plugin duy nhất
+- Không cần cấu hình phức tạp
+
+### Cách Cài Đặt & Sử Dụng
+1. Vào WordPress admin → **Plugin > Cài mới**
+2. Tìm: `WP-Optimize`
+3. Cài đặt và kích hoạt
+4. Vào menu: **WP-Optimize**
+   - Chọn: **Database** → dọn dẹp bản nháp, revision
+   - Chọn: **Images** → bật nén ảnh
+   - Chọn: **Cache** → bật bộ nhớ đệm
+
+## 2. LiteSpeed Cache
+
+### Mục Đích Sử Dụng
+- Tăng tốc website bằng cache cấp server (server-level cache)
+- Tối ưu ảnh (WebP), nén dữ liệu, lazy load, minify,...
+- Hỗ trợ CDN, Object Cache, HTTP/3
+- Tối ưu tốc độ toàn diện và chuyên sâu
+
+### Khi Nào Nên Cài
+- Website chạy trên **Web Server LiteSpeed** (OpenLiteSpeed hoặc LiteSpeed Enterprise)
+- Dùng **Hosting/VPS hỗ trợ LiteSpeed** như Vietnix, Azdigi,...
+- Cần tối ưu tốc độ chuyên sâu, vượt trội so với plugin thông thường
+
+> Nếu **không chạy LiteSpeed web server**, plugin này **sẽ không hiệu quả**
+
+### Cách Cài Đặt & Sử Dụng
+1. Vào WordPress admin → **Plugin > Cài mới**
+2. Tìm: `LiteSpeed Cache`
+3. Cài đặt và kích hoạt
+4. Vào menu: **LiteSpeed Cache**
+   - Bật cache
+   - Cấu hình các mục như:
+     - **Page Optimization** (minify, lazy load, defer JS,…)
+     - **Image Optimization**
+     - **CDN, Browser Cache, Object Cache,...**
+
+## 3. Nên Dùng Plugin Nào?
+
+| Trường hợp | Khuyên dùng Plugin |
+|------------|---------------------|
+| Dùng hosting bình thường | WP-Optimize |
+| Dùng VPS + Webserver Apache/Nginx | WP-Optimize |
+| Dùng Web Server LiteSpeed | **LiteSpeed Cache** (ưu tiên) |
+| Muốn cấu hình đơn giản | WP-Optimize |
+| Muốn tối ưu tốc độ tối đa, chuyên sâu | LiteSpeed Cache |
+
+- **Không nên cài 2 plugin cache cùng lúc**, tránh xung đột.
+- Nếu đã dùng **LiteSpeed Cache**, thì **không cần WP-Optimize (cache)** – chỉ dùng phần tối ưu database nếu muốn.
+
+---
+
+# VI. Tạo SSL với ZEROSSL
+# Cài Đặt SSL Miễn Phí Từ ZeroSSL Cho WordPress Và Laravel Trên aaPanel
+
+## Bước 1: Tạo Chứng Chỉ SSL Từ ZeroSSL
+
+- Truy cập trang: https://zerossl.com  
+- Nhấn **“New Certificate”**  
+- Nhập domain vdien.wp.vietnix.tech 
+
+- Chọn loại chứng chỉ: **90-Day Certificate (Free)**  
+- Chọn phương thức xác minh: **HTTP File Upload**  
+- Tải file `.txt` chứa chuỗi xác minh do ZeroSSL cung cấp
+
+
+## Bước 2: Upload File Xác Minh Lên VPS Qua aaPanel
+
+### Tạo thư mục xác minh
+
+- Vào menu **Files**
+- Vào thư mục: www/wwwroot/vdien.wp.vietnix.tech
+- Tạo thư mục `.well-known`
+- Trong `.well-known`, tạo tiếp thư mục `pki-validation`
+- Upload file xác minh vừa tải về lên thư mục mói tạo
+
+## Bước 3: Hoàn Tất Cấp SSL
+
+- Quay lại ZeroSSL → nhấn **Next Step**
+- Sau khi xác minh thành công, tải về file zip chứa 3 file:
+   - `certificate.crt`
+   - `ca_bundle.crt`
+   - `private.key`
+
+## Bước 4: Cài SSL Trong aaPanel
+
+- Vào: **Website > domain cần cài SSL 
+- Chọn tab **SSL**
+- Nhập các nội dung từ các file
+  - **Private Key**: dán nội dung từ file `private.key`
+  - **Certificate**: dán nội dung kết hợp: `certificate.crt`, `ca_bundle.crt`
+
+- Nhấn **Save**
+
+
+## Bước 5: Kiểm Tra Hoạt Động Của SSL
+
+- Truy cập website bằng HTTPS: https://vdien.wp.vietnix.tech
